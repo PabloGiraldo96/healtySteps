@@ -1,4 +1,40 @@
-const XpTree = ({ statPoints, allocateStatPoint }) => {
+const SkillTree = ({
+  statPoints,
+  setStatPoints,
+  strength,
+  setStrength,
+  intelligence,
+  setIntelligence,
+  agility,
+  setAgility,
+  currentEndurance,
+  setCurrentEndurance,
+  maxEndurance,
+  setMaxEndurance,
+}) => {
+  const allocateStatPoint = (stat) => {
+    if (statPoints > 0) {
+      switch (stat) {
+        case 'strength':
+          setStrength((prev) => prev + 1);
+          break;
+        case 'intelligence':
+          setIntelligence((prev) => prev + 1);
+          break;
+        case 'agility':
+          setAgility((prev) => prev + 1);
+          break;
+        case 'endurance':
+          setMaxEndurance((prevMax) => prevMax + 1);
+          setCurrentEndurance((prevCurrent) => prevCurrent + 1);
+          break;
+        default:
+          break;
+      }
+      setStatPoints((prev) => prev - 1); 
+    }
+  };
+
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Skill Tree</h2>
@@ -37,4 +73,4 @@ const XpTree = ({ statPoints, allocateStatPoint }) => {
   );
 };
 
-export default XpTree;
+export default SkillTree;

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import XpTree from './XpTree';
+import XpTree from './SkillTree';
 import Inventory from './Inventory';
 
 const MainUI = () => {
@@ -95,29 +95,6 @@ const MainUI = () => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  };
-
-  const allocateStatPoint = (stat) => {
-    if (statPoints > 0) {
-      switch (stat) {
-        case 'strength':
-          setStrength((prev) => prev + 1);
-          break;
-        case 'intelligence':
-          setIntelligence((prev) => prev + 1);
-          break;
-        case 'agility':
-          setAgility((prev) => prev + 1);
-          break;
-        case 'endurance':
-          setMaxEndurance((prevMax) => prevMax + 1);
-          setCurrentEndurance((prevCurrent) => prevCurrent + 1);
-          break;
-        default:
-          break;
-      }
-      setStatPoints((prev) => prev - 1); 
-    }
   };
 
   return (
@@ -215,7 +192,7 @@ const MainUI = () => {
             <button
               className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
             >
-              Town 
+              Explore
             </button>
             <button
               className="w-full px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
@@ -229,7 +206,16 @@ const MainUI = () => {
           <XpTree
             statPoints={statPoints}
             setStatPoints={setStatPoints}
-            allocateStatPoint={allocateStatPoint} 
+            strength={strength}
+            setStrength={setStrength}
+            intelligence={intelligence}
+            setIntelligence={setIntelligence}
+            agility={agility}
+            setAgility={setAgility}
+            currentEndurance={currentEndurance}
+            setCurrentEndurance={setCurrentEndurance}
+            maxEndurance={maxEndurance}
+            setMaxEndurance={setMaxEndurance}
           />
           <button
             onClick={() => setShowXpTree(false)}
