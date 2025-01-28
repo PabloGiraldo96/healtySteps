@@ -213,12 +213,12 @@ const StatsUI = () => {
           </div>
         </div>
       ) : (
-        // XpTree View
+
         <div className="space-y-4">
           <XpTree
             statPoints={statPoints}
             setStatPoints={setStatPoints}
-            allocateStatPoint={allocateStatPoint} // Pass the function to allocate points
+            allocateStatPoint={allocateStatPoint} 
           />
           <button
             onClick={() => setShowXpTree(false)}
