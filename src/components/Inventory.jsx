@@ -13,12 +13,6 @@ const Inventory = () => {
           </div>
         ))}
       </div>
-      <button
-        onClick={() => setShowInventory(false)}
-        className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
-      >
-        Back to Stats
-      </button>
     </div>
   );
 };

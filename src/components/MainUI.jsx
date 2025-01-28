@@ -116,7 +116,7 @@ const MainUI = () => {
         default:
           break;
       }
-      setStatPoints((prev) => prev - 1); // Deduct a stat point
+      setStatPoints((prev) => prev - 1); 
     }
   };
 
@@ -124,13 +124,13 @@ const MainUI = () => {
     <div className="space-y-4">
       <div className='place-self-center'>
         <Image
-          src="/intro.png" // Path to the image in the public folder
+          src="/intro.png"
           alt="Start Screen"
-          width={400} // Desired width of the image
-          height={400} // Desired height of the image
+          width={400}
+          height={400} 
         />
       </div>
-      {!showXpTree ? (
+      {!showXpTree && !showInventory ? (
         <div className="grid grid-cols-3 gap-3">
           <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <div className='flex gap-3'>
@@ -196,7 +196,7 @@ const MainUI = () => {
               {cooldown > 0 ? `Wait ${formatCooldown(cooldown)}` : 'Log Water'}
             </button>
             <button
-              onClick={() => setShowXpTree(true)}
+              onClick={() => { setShowXpTree(true); setShowInventory(false); }}
               className="w-full px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
             >
               Skill Tree
@@ -207,6 +207,7 @@ const MainUI = () => {
               Map
             </button>
             <button
+              onClick={() => { setShowInventory(true); setShowXpTree(false); }}
               className="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               Inventory
@@ -229,7 +230,7 @@ const MainUI = () => {
           <XpTree
             statPoints={statPoints}
             setStatPoints={setStatPoints}
-            allocateStatPoint={allocateStatPoint} // Pass the function to allocate points
+            allocateStatPoint={allocateStatPoint} 
           />
           <button
             onClick={() => setShowXpTree(false)}
@@ -238,7 +239,7 @@ const MainUI = () => {
             Back to Main Menu
           </button>
         </div>
-      ) : (
+      ) : showInventory ? (
         // Inventory View
         <div className="space-y-4">
           <Inventory />
@@ -249,7 +250,7 @@ const MainUI = () => {
             Back to Main Menu
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
