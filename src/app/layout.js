@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "💧WateRPG💧",
+  title: "WateRPG",
   description: "A text adventure.",
 };
 
