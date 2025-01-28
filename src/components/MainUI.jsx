@@ -98,6 +98,23 @@ const MainUI = () => {
   };
 
   return (
+    <div className="space-y-4">
+      <div className='place-self-center'>
+        {showInventory ? (
+          <Image
+            src="/inventory.png"
+            alt="Inventory Screen"
+            width={400}
+            height={400} 
+          />
+        ) : (
+          <Image
+            src="/intro.png"
+            alt="Start Screen"
+            width={400}
+            height={400} 
+          />
+        )}
     <div className="p-4 space-y-4">
       <div className="place-self-center ">
         <Image src="/intro.png" alt="Start Screen" width={400} height={400} />
