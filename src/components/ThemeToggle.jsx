@@ -3,16 +3,15 @@
 import { useState, useEffect } from 'react';
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        return savedTheme === 'dark';
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(false); 
+  const [isMounted, setIsMounted] = useState(false); 
+  
+  useEffect(() => {
+    setIsMounted(true);
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(savedTheme ? savedTheme === 'dark' : prefersDarkMode);
+  }, []);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => {
@@ -23,12 +22,18 @@ const ThemeToggle = () => {
   };
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    if (isMounted) { 
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, isMounted]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <button
