@@ -10,9 +10,11 @@ const StatsUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(0);
+  const [statPoints, setStatPoints] = useState(5); // Initialize with 5 skill points
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false); 
+
+  // Add state variables for strength, intelligence, agility, and endurance
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
@@ -35,7 +37,7 @@ const StatsUI = () => {
             const newXp = prevXp + 10;
             if (newXp >= maxXp) {
               setLevel((prevLevel) => prevLevel + 1);
-              setStatPoints((prevStatPoints) => prevStatPoints + 1);
+              setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
               setMaxXp((prevMaxXp) => prevMaxXp * 2);
               return 0;
             }
@@ -65,7 +67,7 @@ const StatsUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1);
+          setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
@@ -91,6 +93,29 @@ const StatsUI = () => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
+  // Function to handle stat allocation in the skill tree
+  const allocateStatPoint = (stat) => {
+    if (statPoints > 0) {
+      switch (stat) {
+        case 'strength':
+          setStrength((prev) => prev + 1);
+          break;
+        case 'intelligence':
+          setIntelligence((prev) => prev + 1);
+          break;
+        case 'agility':
+          setAgility((prev) => prev + 1);
+          break;
+        case 'endurance':
+          setEndurance((prev) => prev + 1);
+          break;
+        default:
+          break;
+      }
+      setStatPoints((prev) => prev - 1); // Deduct a stat point
+    }
   };
 
   return (
@@ -188,7 +213,11 @@ const StatsUI = () => {
       ) : (
         // XpTree View
         <div className="space-y-4">
-          <XpTree statPoints={statPoints} setStatPoints={setStatPoints} />
+          <XpTree
+            statPoints={statPoints}
+            setStatPoints={setStatPoints}
+            allocateStatPoint={allocateStatPoint} // Pass the function to allocate points
+          />
           <button
             onClick={() => setShowXpTree(false)}
             className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"

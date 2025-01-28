@@ -35,3 +35,10 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # healtySteps
+
+-Rules-
+Stat Points
+Strength = HP level 
+Intelligence = Mana level
+Agility = extra distance you may take with steps 
+Endurance = Amount of events allowed to take, refreshed 1 per hour
