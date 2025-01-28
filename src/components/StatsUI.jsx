@@ -10,14 +10,16 @@ const StatsUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(5); 
+  const [statPoints, setStatPoints] = useState(5); // Initialize with 5 skill points
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
+
+  // Add state variables for strength, intelligence, agility, and endurance
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
-  const [currentEndurance, setCurrentEndurance] = useState(10); 
-  const [maxEndurance, setMaxEndurance] = useState(10); 
+  const [currentEndurance, setCurrentEndurance] = useState(10); // Current endurance value
+  const [maxEndurance, setMaxEndurance] = useState(10); // Maximum endurance value
 
   const getWeightedRandomXP = () => {
     const random = Math.random();
@@ -36,7 +38,7 @@ const StatsUI = () => {
             const newXp = prevXp + 10;
             if (newXp >= maxXp) {
               setLevel((prevLevel) => prevLevel + 1);
-              setStatPoints((prevStatPoints) => prevStatPoints + 1);
+              setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
               setMaxXp((prevMaxXp) => prevMaxXp * 2);
               return 0;
             }
@@ -66,7 +68,7 @@ const StatsUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1); 
+          setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
@@ -94,6 +96,7 @@ const StatsUI = () => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
+  // Function to handle stat allocation in the skill tree
   const allocateStatPoint = (stat) => {
     if (statPoints > 0) {
       switch (stat) {
@@ -107,15 +110,15 @@ const StatsUI = () => {
           setAgility((prev) => prev + 1);
           break;
         case 'endurance':
+          // Increase maxEndurance by 1
           setMaxEndurance((prevMax) => prevMax + 1);
-          if (currentEndurance === maxEndurance) {
-            setCurrentEndurance((prevCurrent) => prevCurrent + 1);
-          }
+          // Increase currentEndurance by 1
+          setCurrentEndurance((prevCurrent) => prevCurrent + 1);
           break;
         default:
           break;
       }
-      setStatPoints((prev) => prev - 1); 
+      setStatPoints((prev) => prev - 1); // Deduct a stat point
     }
   };
 
@@ -153,7 +156,7 @@ const StatsUI = () => {
             <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
               <div
                 className="bg-purple-500 h-4 rounded-full"
-                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }} 
+                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }} // Calculate width based on current/max
               ></div>
             </div>
             <div className='flex gap-3'>
@@ -217,7 +220,7 @@ const StatsUI = () => {
           <XpTree
             statPoints={statPoints}
             setStatPoints={setStatPoints}
-            allocateStatPoint={allocateStatPoint} 
+            allocateStatPoint={allocateStatPoint} // Pass the function to allocate points
           />
           <button
             onClick={() => setShowXpTree(false)}
