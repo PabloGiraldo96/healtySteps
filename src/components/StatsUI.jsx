@@ -65,7 +65,7 @@ const StatsUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
+          setStatPoints((prevStatPoints) => prevStatPoints + 1); 
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
