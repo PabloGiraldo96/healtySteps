@@ -10,11 +10,9 @@ const StatsUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(5); // Initialize with 5 skill points
+  const [statPoints, setStatPoints] = useState(5); 
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false); 
-
-  // Add state variables for strength, intelligence, agility, and endurance
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
@@ -37,7 +35,7 @@ const StatsUI = () => {
             const newXp = prevXp + 10;
             if (newXp >= maxXp) {
               setLevel((prevLevel) => prevLevel + 1);
-              setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
+              setStatPoints((prevStatPoints) => prevStatPoints + 1); 
               setMaxXp((prevMaxXp) => prevMaxXp * 2);
               return 0;
             }
@@ -95,7 +93,6 @@ const StatsUI = () => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  // Function to handle stat allocation in the skill tree
   const allocateStatPoint = (stat) => {
     if (statPoints > 0) {
       switch (stat) {
@@ -114,7 +111,7 @@ const StatsUI = () => {
         default:
           break;
       }
-      setStatPoints((prev) => prev - 1); // Deduct a stat point
+      setStatPoints((prev) => prev - 1); 
     }
   };
 
