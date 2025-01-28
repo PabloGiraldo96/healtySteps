@@ -142,6 +142,21 @@ const StatsUI = () => {
             >
               Skill Tree
             </button>
+            <button
+              className="w-full px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+            >
+              Map
+            </button>
+            <button
+              className="w-full px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-700"
+            >
+              Inventory
+            </button>
+            <button
+              className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-600"
+            >
+              Merchant 
+            </button>
           </div>
         </div>
       ) : (
