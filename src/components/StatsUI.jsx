@@ -176,11 +176,11 @@ const StatsUI = () => {
             <h2 className="text-xl font-semibold">Water Intake</h2>
             <p className="text-lg">{waterIntake} Water</p>
           </div>
-          <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-3">
             <button
               onClick={handleWaterClick}
               disabled={cooldown > 0}
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
               {cooldown > 0 ? `Wait ${formatCooldown(cooldown)}` : 'Log Water'}
             </button>
