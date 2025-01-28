@@ -14,6 +14,12 @@ const StatsUI = () => {
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false); 
 
+  // Add state variables for strength, intelligence, agility, and endurance
+  const [strength, setStrength] = useState(10);
+  const [intelligence, setIntelligence] = useState(10);
+  const [agility, setAgility] = useState(10);
+  const [endurance, setEndurance] = useState(10);
+
   const getWeightedRandomXP = () => {
     const random = Math.random();
     const weightedXP = Math.floor(Math.pow(random, 2) * 16) + 1;
@@ -130,6 +136,10 @@ const StatsUI = () => {
             <p className="text-lg font-semibold">Level: {level}</p>
             <p className="text-lg font-semibold">Gold: </p>
             <p className="text-lg font-semibold">Stat Points: {statPoints}</p>
+            <p className="text-lg font-semibold">Strength: {strength}</p>
+            <p className="text-lg font-semibold">Intelligence: {intelligence}</p>
+            <p className="text-lg font-semibold">Agility: {agility}</p>
+            <p className="text-lg font-semibold">Endurance: {endurance}</p>
             <h2 className="text-xl font-semibold">Steps</h2>
             <p className="text-lg">{steps} Traveled</p>
             <h2 className="text-xl font-semibold">Water Intake</h2>
