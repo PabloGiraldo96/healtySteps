@@ -10,16 +10,14 @@ const StatsUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(5); // Initialize with 5 skill points
+  const [statPoints, setStatPoints] = useState(5);
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
-
-  // Add state variables for strength, intelligence, agility, and endurance
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
-  const [currentEndurance, setCurrentEndurance] = useState(10); // Current endurance value
-  const [maxEndurance, setMaxEndurance] = useState(10); // Maximum endurance value
+  const [currentEndurance, setCurrentEndurance] = useState(10); 
+  const [maxEndurance, setMaxEndurance] = useState(10); 
 
   const getWeightedRandomXP = () => {
     const random = Math.random();
@@ -38,7 +36,7 @@ const StatsUI = () => {
             const newXp = prevXp + 10;
             if (newXp >= maxXp) {
               setLevel((prevLevel) => prevLevel + 1);
-              setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
+              setStatPoints((prevStatPoints) => prevStatPoints + 1); 
               setMaxXp((prevMaxXp) => prevMaxXp * 2);
               return 0;
             }
@@ -68,7 +66,7 @@ const StatsUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1); // Gain 1 stat point on level up
+          setStatPoints((prevStatPoints) => prevStatPoints + 1); 
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
@@ -96,7 +94,6 @@ const StatsUI = () => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  // Function to handle stat allocation in the skill tree
   const allocateStatPoint = (stat) => {
     if (statPoints > 0) {
       switch (stat) {
@@ -110,9 +107,7 @@ const StatsUI = () => {
           setAgility((prev) => prev + 1);
           break;
         case 'endurance':
-          // Increase maxEndurance by 1
           setMaxEndurance((prevMax) => prevMax + 1);
-          // Increase currentEndurance by 1
           setCurrentEndurance((prevCurrent) => prevCurrent + 1);
           break;
         default:
@@ -125,7 +120,6 @@ const StatsUI = () => {
   return (
     <div className="space-y-4">
       {!showXpTree ? (
-        // Main Stats View
         <div className="grid grid-cols-3 gap-3">
           <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <div className='flex gap-3'>
@@ -148,7 +142,6 @@ const StatsUI = () => {
                 style={{ width: `100%` }}
               ></div>
             </div>
-            {/* Endurance Bar */}
             <div className='flex gap-3'>
               <h2 className="text-xl font-semibold">Endurance: </h2>
               <p className="text-lg">{currentEndurance} / {maxEndurance}</p>
@@ -183,11 +176,11 @@ const StatsUI = () => {
             <h2 className="text-xl font-semibold">Water Intake</h2>
             <p className="text-lg">{waterIntake} Water</p>
           </div>
-          <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-3">
             <button
               onClick={handleWaterClick}
               disabled={cooldown > 0}
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
               {cooldown > 0 ? `Wait ${formatCooldown(cooldown)}` : 'Log Water'}
             </button>
@@ -211,6 +204,11 @@ const StatsUI = () => {
               className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
             >
               Merchant 
+            </button>
+            <button
+              className="w-full px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            >
+              Guild
             </button>
           </div>
         </div>
