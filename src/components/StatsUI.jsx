@@ -6,10 +6,16 @@ const StatsUI = () => {
   const [steps, setSteps] = useState(0);
   const [waterIntake, setWaterIntake] = useState(0);
   const [lastWaterClick, setLastWaterClick] = useState(null);
-  const [cooldown, setCooldown] = useState(0); 
-  const [xp, setXp] = useState(0); 
+  const [cooldown, setCooldown] = useState(0);
+  const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
   const maxXp = 1000;
+
+  const getWeightedRandomXP = () => {
+    const random = Math.random(); 
+    const weightedXP = Math.floor(Math.pow(random, 2) * 1000) + 1; 
+    return weightedXP;
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.DeviceMotionEvent) {
@@ -19,10 +25,10 @@ const StatsUI = () => {
         if (acceleration.y > 1.5) {
           setSteps((prevSteps) => prevSteps + 1);
           setXp((prevXp) => {
-            const newXp = prevXp + 10; 
+            const newXp = prevXp + 10;
             if (newXp >= maxXp) {
               setLevel((prevLevel) => prevLevel + 1);
-              return 0; 
+              return 0;
             }
             return newXp;
           });
@@ -42,9 +48,19 @@ const StatsUI = () => {
   const handleWaterClick = () => {
     const now = new Date();
     if (!lastWaterClick || now - lastWaterClick >= 60 * 60 * 1000) {
+      const gainedXP = getWeightedRandomXP(); 
       setWaterIntake((prevWater) => prevWater + 1);
       setLastWaterClick(now);
       setCooldown(60 * 60);
+      setXp((prevXp) => {
+        const newXp = prevXp + gainedXP;
+        if (newXp >= maxXp) {
+          setLevel((prevLevel) => prevLevel + 1); 
+          return newXp - maxXp; 
+        }
+        return newXp;
+      });
+      alert(`You gained ${gainedXP} XP!`);
     } else {
       alert('You can only log one glass of water per hour.');
     }
@@ -68,13 +84,13 @@ const StatsUI = () => {
 
   return (
     <div className="space-y-4">
-      <div className='grid grid-cols-3 gap-3'>
+      <div className="grid grid-cols-3 gap-3">
         <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <h2 className="text-xl font-semibold">XP</h2>
+          <h2 className="text-xl font-semibold">XP</h2>
           <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
             <div
               className="bg-yellow-500 h-4 rounded-full"
-              style={{ width: `${(xp / maxXp) * 100}%` }} // XP bar width as a percentage
+              style={{ width: `${(xp / maxXp) * 100}%` }}
             ></div>
           </div>
           <p className="text-lg">{xp} / {maxXp} XP</p>
@@ -90,18 +106,18 @@ const StatsUI = () => {
           <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
             <div
               className="bg-blue-500 h-4 rounded-full"
-              style={{ width: `100%` }} 
+              style={{ width: `100%` }}
             ></div>
           </div>
           <p className="text-lg">100 MP</p>
         </div>
         <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
           <h2 className="text-xl font-semibold">LVL</h2>
-            <p className="text-lg">Level {level}</p>
+          <p className="text-lg">Level {level}</p>
           <h2 className="text-xl font-semibold">Steps</h2>
-            <p className="text-lg">{steps} Traveled</p>
+          <p className="text-lg">{steps} Traveled</p>
           <h2 className="text-xl font-semibold">Water Intake</h2>
-            <p className="text-lg">{waterIntake} Water</p>
+          <p className="text-lg">{waterIntake} Water</p>
         </div>
         <div>
           <button
