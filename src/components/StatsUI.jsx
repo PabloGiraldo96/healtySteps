@@ -13,8 +13,6 @@ const StatsUI = () => {
   const [statPoints, setStatPoints] = useState(0);
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false); 
-
-  // Add state variables for strength, intelligence, agility, and endurance
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
@@ -119,6 +117,17 @@ const StatsUI = () => {
               <div
                 className="bg-blue-500 h-4 rounded-full"
                 style={{ width: `100%` }}
+              ></div>
+            </div>
+            {/* Endurance Bar */}
+            <div className='flex gap-3'>
+              <h2 className="text-xl font-semibold">Endurance: </h2>
+              <p className="text-lg">{endurance}</p>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+              <div
+                className="bg-purple-500 h-4 rounded-full"
+                style={{ width: `${(endurance / 10) * 100}%` }} // Assuming endurance is out of 10
               ></div>
             </div>
             <div className='flex gap-3'>
