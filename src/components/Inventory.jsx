@@ -2,14 +2,8 @@
 
 import { useState, useEffect } from 'react';
 
-const Inventory = ({ newItem, waterIntake }) => {
+const Inventory = ({ waterIntake }) => {
   const [inventory, setInventory] = useState(Array(12).fill(null));
-
-  useEffect(() => {
-    if (newItem && newItem.type && newItem.count > 0) {
-      addItemToInventory(newItem);
-    }
-  }, [newItem]);
 
   useEffect(() => {
     if (waterIntake > 0) {
