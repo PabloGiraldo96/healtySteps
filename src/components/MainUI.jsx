@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import XpTree from "./XpTree";
+import Inventory from "./Inventory";
 
-const StatsUI = () => {
+const MainUI = () => {
   const [steps, setSteps] = useState(0);
   const [waterIntake, setWaterIntake] = useState(0);
   const [lastWaterClick, setLastWaterClick] = useState(null);
@@ -13,6 +15,7 @@ const StatsUI = () => {
   const [statPoints, setStatPoints] = useState(5);
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
+  const [showInventory, setShowInventory] = useState(false);
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
@@ -113,15 +116,24 @@ const StatsUI = () => {
         default:
           break;
       }
-      setStatPoints((prev) => prev - 1); // Deduct a stat point
+      setStatPoints((prev) => prev - 1);
     }
   };
 
   return (
-    <div className="p-4 space-y-4">
-      {!showXpTree ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 space-y-2">
+    <div className="space-y-4">
+      <div className="place-self-center">
+        <Image
+          src="/intro.png"
+          alt="Start Screen"
+          width={650}
+          height={300}
+          className="relative aspect-[21/8] rounded-xl overflow-hidden shadow-4sxl"
+        />
+      </div>
+      {!showXpTree && !showInventory ? (
+        <div className="grid grid-cols-3 gap-3">
+          <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <div className="flex gap-3">
               <h2 className="text-xl font-semibold">Health: </h2>
               <p className="text-lg">28 HP</p>
@@ -151,7 +163,7 @@ const StatsUI = () => {
             <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
               <div
                 className="bg-purple-500 h-4 rounded-full"
-                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }} // Calculate width based on current/max
+                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }}
               ></div>
             </div>
             <div className="flex gap-3">
@@ -193,7 +205,10 @@ const StatsUI = () => {
               {cooldown > 0 ? `Wait ${formatCooldown(cooldown)}` : "Log Water"}
             </button>
             <button
-              onClick={() => setShowXpTree(true)}
+              onClick={() => {
+                setShowXpTree(true);
+                setShowInventory(false);
+              }}
               className="w-full px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
             >
               Skill Tree
@@ -201,7 +216,13 @@ const StatsUI = () => {
             <button className="w-full px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
               Map
             </button>
-            <button className="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+            <button
+              onClick={() => {
+                setShowInventory(true);
+                setShowXpTree(false);
+              }}
+              className="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
               Inventory
             </button>
             <button className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
@@ -212,24 +233,33 @@ const StatsUI = () => {
             </button>
           </div>
         </div>
-      ) : (
-        // XpTree View
+      ) : showXpTree ? (
         <div className="space-y-4">
           <XpTree
             statPoints={statPoints}
             setStatPoints={setStatPoints}
-            allocateStatPoint={allocateStatPoint} // Pass the function to allocate points
+            allocateStatPoint={allocateStatPoint}
           />
           <button
             onClick={() => setShowXpTree(false)}
             className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
           >
-            Back to Stats
+            Back to Main Menu
           </button>
         </div>
-      )}
+      ) : showInventory ? (
+        <div className="space-y-4">
+          <Inventory />
+          <button
+            onClick={() => setShowInventory(false)}
+            className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+          >
+            Back to Main Menu
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };
 
-export default StatsUI;
+export default MainUI;
