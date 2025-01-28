@@ -121,7 +121,7 @@ const MainUI = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="p-4 space-y-4">
       <div className="place-self-center">
         <Image
           src="/intro.png"
@@ -132,8 +132,8 @@ const MainUI = () => {
         />
       </div>
       {!showXpTree && !showInventory ? (
-        <div className="grid grid-cols-3 gap-3">
-          <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 space-y-2">
             <div className="flex gap-3">
               <h2 className="text-xl font-semibold">Health: </h2>
               <p className="text-lg">28 HP</p>
