@@ -1,6 +1,6 @@
 "use client";
 
-import StepCounter from '@/components/StatsUI';
+import StepCounter from '@/components/MainUI';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Home() {

@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import XpTree from './XpTree';
+import Inventory from './Inventory';
 
-const StatsUI = () => {
+const MainUI = () => {
   const [steps, setSteps] = useState(0);
   const [waterIntake, setWaterIntake] = useState(0);
   const [lastWaterClick, setLastWaterClick] = useState(null);
@@ -13,6 +14,7 @@ const StatsUI = () => {
   const [statPoints, setStatPoints] = useState(5);
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
+  const [showInventory, setShowInventory] = useState(false);
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
@@ -212,7 +214,7 @@ const StatsUI = () => {
             </button>
           </div>
         </div>
-      ) : (
+      ) : showXpTree ? (
         // XpTree View
         <div className="space-y-4">
           <XpTree
@@ -224,7 +226,18 @@ const StatsUI = () => {
             onClick={() => setShowXpTree(false)}
             className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
           >
-            Back to Stats
+            Back to Main Menu
+          </button>
+        </div>
+      ) : (
+        // Inventory View
+        <div className="space-y-4">
+          <Inventory />
+          <button
+            onClick={() => setShowInventory(false)}
+            className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+          >
+            Back to Main Menu
           </button>
         </div>
       )}
@@ -232,4 +245,4 @@ const StatsUI = () => {
   );
 };
 
-export default StatsUI;
+export default MainUI;
