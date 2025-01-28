@@ -122,6 +122,7 @@ const StatsUI = () => {
           </div>
           <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <p className="text-lg font-semibold">Level: {level}</p>
+            <p className="text-lg font-semibold">Gold: </p>
             <p className="text-lg font-semibold">Stat Points: {statPoints}</p>
             <h2 className="text-xl font-semibold">Steps</h2>
             <p className="text-lg">{steps} Traveled</p>
@@ -148,12 +149,12 @@ const StatsUI = () => {
               Map
             </button>
             <button
-              className="w-full px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-700"
+              className="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               Inventory
             </button>
             <button
-              className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-600"
+              className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
             >
               Merchant 
             </button>
