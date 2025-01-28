@@ -160,7 +160,7 @@ const MainUI = () => {
             <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
               <div
                 className="bg-purple-500 h-4 rounded-full"
-                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }} // Calculate width based on current/max
+                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }} 
               ></div>
             </div>
             <div className='flex gap-3'>
@@ -225,7 +225,6 @@ const MainUI = () => {
           </div>
         </div>
       ) : showXpTree ? (
-        // XpTree View
         <div className="space-y-4">
           <XpTree
             statPoints={statPoints}
@@ -240,7 +239,6 @@ const MainUI = () => {
           </button>
         </div>
       ) : showInventory ? (
-        // Inventory View
         <div className="space-y-4">
           <Inventory />
           <button
