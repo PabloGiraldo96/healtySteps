@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import XpTree from './XpTree';
 import Inventory from './Inventory';
@@ -121,6 +122,14 @@ const MainUI = () => {
 
   return (
     <div className="space-y-4">
+      <div className='place-self-center'>
+        <Image
+          src="/intro.png" // Path to the image in the public folder
+          alt="Start Screen"
+          width={400} // Desired width of the image
+          height={400} // Desired height of the image
+        />
+      </div>
       {!showXpTree ? (
         <div className="grid grid-cols-3 gap-3">
           <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
