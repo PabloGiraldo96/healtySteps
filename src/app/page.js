@@ -11,7 +11,6 @@ export default function Home() {
           <ThemeToggle />
         </header>
         <main className="text-center p-4">
-          <h1 className="text-2xl font-bold mb-4">Welcome to WateRPG</h1>
           <MainUI />
         </main>
       </div>
