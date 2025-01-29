@@ -1,8 +1,9 @@
 #WateRPG
 
 Rules:
-```
+
 <ins>Stat Points</ins>
+```
 Strength = HP level 
 Intelligence = Mana level
 Agility = extra distance you may take with steps 
