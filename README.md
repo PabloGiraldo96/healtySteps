@@ -1,7 +1,5 @@
 #WateRPG
 
-Rules:
-
 <ins>Stat Points</ins>
 ```
 Strength = HP level 
