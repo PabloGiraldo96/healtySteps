@@ -101,6 +101,11 @@ const MainUI = () => {
     <div className="space-y-4">
       <div className='place-self-center'>
         {showInventory ? (
+          <h1 className="text-2xl font-semibold text-center mb-4">Inventory</h1>
+        ) : (
+          <h1 className="text-2xl font-semibold text-center mb-4">Welcome to WateRPG</h1>
+        )}
+        {showInventory ? (
           <Image
             src="/inventory.png"
             alt="Inventory Screen"
