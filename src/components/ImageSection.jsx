@@ -6,6 +6,8 @@ const ImageSection = ({ showInventory, currentLocation }) => {
       return "/inventory.png";
     } else if (currentLocation === "Watwon") {
       return "/wantwon.png";
+    } else if (currentLocation === "Wishing Well") {
+      return "/wishingwell.png"; // Add the Wishing Well image
     } else {
       return "/main.png";
     }
@@ -24,6 +26,8 @@ const ImageSection = ({ showInventory, currentLocation }) => {
       return "Inventory Screen";
     } else if (currentLocation === "Watwon") {
       return "Watwon";
+    } else if (currentLocation === "Wishing Well") {
+      return "Wishing Well";
     } else {
       return "Home";
     }

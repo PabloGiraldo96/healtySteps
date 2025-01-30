@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import XpTree from './SkillTree';
 import Inventory from './Inventory';
@@ -7,6 +9,7 @@ import PlayerInfo from './PlayerInfo';
 import ActionButtons from './ActionButtons';
 import HomeTown from './locations/hometown/HomeTown';
 import Watwon from './locations/watwon/Watwon';
+import WishingWell from './locations/wishingwell/WishingWell'; // Import the new component
 import ImageSection from './ImageSection';
 
 const MainUI = () => {
@@ -95,9 +98,10 @@ const MainUI = () => {
         <HomeTown onTravelToWatwon={handleTravelToWatwon} />
       ) : currentLocation === "Watwon" ? (
         <Watwon onReturnHome={handleReturnHome} />
+      ) : currentLocation === "Wishing Well" ? (
+        <WishingWell onReturnHome={handleReturnHome} />
       ) : null}
 
-      {/* ImageSection moved above the stats section */}
       <ImageSection showInventory={showInventory} currentLocation={currentLocation} />
 
       {!showXpTree && !showInventory && !showMap ? (
