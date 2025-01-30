@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; // Ensure useEffect is imported
 import XpTree from './SkillTree';
 import Inventory from './Inventory';
 import Map from './Map';
 import Stats from './Stats';
 import PlayerInfo from './PlayerInfo';
 import ActionButtons from './ActionButtons';
-import ImageSection from './ImageSection';
+import HomeTown from './locations/hometown/HomeTown';
+import Watwon from './locations/wontwon/Watwon';
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -65,15 +66,16 @@ const MainUI = () => {
     return weightedXP;
   };
 
+  // Fixed useEffect with dependency array
   useEffect(() => {
     if (cooldown > 0) {
       const timer = setInterval(() => {
         setCooldown((prevCooldown) => prevCooldown - 1);
       }, 1000);
 
-      return () => clearInterval(timer);
+      return () => clearInterval(timer); // Cleanup on unmount
     }
-  }, [cooldown]);
+  }, [cooldown]); // Add cooldown as a dependency
 
   const formatCooldown = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -81,12 +83,22 @@ const MainUI = () => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
+  const handleTravelToWatwon = () => {
+    setCurrentLocation("Watwon");
+  };
+
+  const handleReturnHome = () => {
+    setCurrentLocation("Home");
+  };
+
   return (
     <div className="space-y-4">
-      <ImageSection
-        showInventory={showInventory}
-        currentLocation={currentLocation}
-      />
+      {currentLocation === "Home" ? (
+        <HomeTown onTravelToWatwon={handleTravelToWatwon} />
+      ) : currentLocation === "Watwon" ? (
+        <Watwon onReturnHome={handleReturnHome} />
+      ) : null}
+
       {!showXpTree && !showInventory && !showMap ? (
         <div className="grid grid-cols-3 gap-3">
           <Stats
