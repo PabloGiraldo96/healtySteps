@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import XpTree from './SkillTree';
 import Inventory from './Inventory';
-import Map from './Map'; 
+import Map from './Map';
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -22,14 +22,22 @@ const MainUI = () => {
   const [agility, setAgility] = useState(10);
   const [currentEndurance, setCurrentEndurance] = useState(10);
   const [maxEndurance, setMaxEndurance] = useState(10);
-  const [currentLocation, setCurrentLocation] = useState("Home"); 
-  const [showMap, setShowMap] = useState(false); 
+  const [currentLocation, setCurrentLocation] = useState("Home");
+  const [showMap, setShowMap] = useState(false);
 
   const handleLocationSelect = (location) => {
     const confirmTravel = window.confirm(`Do you want to travel to ${location}?`);
     if (confirmTravel) {
       setCurrentLocation(location);
-      setShowMap(false); 
+      setShowMap(false);
+    }
+  };
+
+  const getImageSource = () => {
+    if (currentLocation === "Watwon") {
+      return "/wantwon.png";
+    } else {
+      return "/main.png";
     }
   };
 
@@ -84,7 +92,7 @@ const MainUI = () => {
         {showInventory ? (
           <h1 className="text-2xl font-semibold text-center mb-4">Inventory</h1>
         ) : (
-          <h1 className="text-2xl font-semibold text-center mb-4">{`${currentLocation}`}</h1>
+          <h1 className="text-2xl font-semibold text-center mb-4">{`Welcome to ${currentLocation}`}</h1>
         )}
         {showInventory ? (
           <Image
@@ -95,8 +103,8 @@ const MainUI = () => {
           />
         ) : (
           <Image
-            src="/main.png"
-            alt="Start Screen"
+            src={getImageSource()}
+            alt={currentLocation === "Watwon" ? "Watwon" : "Home"}
             width={800}
             height={800}
           />
