@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import XpTree from './SkillTree';
 import Inventory from './Inventory';
-import Map from './Map'; // Import the Map component
+import Map from './Map'; 
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -22,19 +22,17 @@ const MainUI = () => {
   const [agility, setAgility] = useState(10);
   const [currentEndurance, setCurrentEndurance] = useState(10);
   const [maxEndurance, setMaxEndurance] = useState(10);
-  const [currentLocation, setCurrentLocation] = useState("Home"); // Track current location
-  const [showMap, setShowMap] = useState(false); // Control visibility of the Map component
+  const [currentLocation, setCurrentLocation] = useState("Home"); 
+  const [showMap, setShowMap] = useState(false); 
 
-  // Function to handle location selection
   const handleLocationSelect = (location) => {
     const confirmTravel = window.confirm(`Do you want to travel to ${location}?`);
     if (confirmTravel) {
       setCurrentLocation(location);
-      setShowMap(false); // Hide the map after traveling
+      setShowMap(false); 
     }
   };
 
-  // Function to handle water intake click
   const handleWaterClick = () => {
     const now = new Date();
     if (!lastWaterClick || now - lastWaterClick >= 60 * 60 * 1000) {
@@ -58,14 +56,12 @@ const MainUI = () => {
     }
   };
 
-  // Function to get weighted random XP
   const getWeightedRandomXP = () => {
     const random = Math.random();
     const weightedXP = Math.floor(Math.pow(random, 2) * 16) + 1;
     return weightedXP;
   };
 
-  // Cooldown timer effect
   useEffect(() => {
     if (cooldown > 0) {
       const timer = setInterval(() => {
@@ -76,7 +72,6 @@ const MainUI = () => {
     }
   }, [cooldown]);
 
-  // Format cooldown time
   const formatCooldown = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -89,7 +84,7 @@ const MainUI = () => {
         {showInventory ? (
           <h1 className="text-2xl font-semibold text-center mb-4">Inventory</h1>
         ) : (
-          <h1 className="text-2xl font-semibold text-center mb-4">{`Welcome to ${currentLocation}`}</h1>
+          <h1 className="text-2xl font-semibold text-center mb-4">{`${currentLocation}`}</h1>
         )}
         {showInventory ? (
           <Image
