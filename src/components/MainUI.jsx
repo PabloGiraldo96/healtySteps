@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import XpTree from './SkillTree';
 import Inventory from './Inventory';
+import Map from './Map'; // Import the Map component
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -19,45 +20,21 @@ const MainUI = () => {
   const [strength, setStrength] = useState(10);
   const [intelligence, setIntelligence] = useState(10);
   const [agility, setAgility] = useState(10);
-  const [currentEndurance, setCurrentEndurance] = useState(10); 
-  const [maxEndurance, setMaxEndurance] = useState(10); 
+  const [currentEndurance, setCurrentEndurance] = useState(10);
+  const [maxEndurance, setMaxEndurance] = useState(10);
+  const [currentLocation, setCurrentLocation] = useState("Home"); // Track current location
+  const [showMap, setShowMap] = useState(false); // Control visibility of the Map component
 
-  const getWeightedRandomXP = () => {
-    const random = Math.random();
-    const weightedXP = Math.floor(Math.pow(random, 2) * 16) + 1;
-    return weightedXP;
+  // Function to handle location selection
+  const handleLocationSelect = (location) => {
+    const confirmTravel = window.confirm(`Do you want to travel to ${location}?`);
+    if (confirmTravel) {
+      setCurrentLocation(location);
+      setShowMap(false); // Hide the map after traveling
+    }
   };
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.DeviceMotionEvent) {
-      const handleMotionEvent = (event) => {
-        const { acceleration } = event;
-
-        if (acceleration.y > 1.5) {
-          setSteps((prevSteps) => prevSteps + 1);
-          setXp((prevXp) => {
-            const newXp = prevXp + 10;
-            if (newXp >= maxXp) {
-              setLevel((prevLevel) => prevLevel + 1);
-              setStatPoints((prevStatPoints) => prevStatPoints + 1); 
-              setMaxXp((prevMaxXp) => prevMaxXp * 2);
-              return 0;
-            }
-            return newXp;
-          });
-        }
-      };
-
-      window.addEventListener('devicemotion', handleMotionEvent);
-
-      return () => {
-        window.removeEventListener('devicemotion', handleMotionEvent);
-      };
-    } else {
-      console.log('Device motion is not supported on this device.');
-    }
-  }, [maxXp]);
-
+  // Function to handle water intake click
   const handleWaterClick = () => {
     const now = new Date();
     if (!lastWaterClick || now - lastWaterClick >= 60 * 60 * 1000) {
@@ -69,7 +46,7 @@ const MainUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1); 
+          setStatPoints((prevStatPoints) => prevStatPoints + 1);
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
@@ -81,6 +58,14 @@ const MainUI = () => {
     }
   };
 
+  // Function to get weighted random XP
+  const getWeightedRandomXP = () => {
+    const random = Math.random();
+    const weightedXP = Math.floor(Math.pow(random, 2) * 16) + 1;
+    return weightedXP;
+  };
+
+  // Cooldown timer effect
   useEffect(() => {
     if (cooldown > 0) {
       const timer = setInterval(() => {
@@ -91,6 +76,7 @@ const MainUI = () => {
     }
   }, [cooldown]);
 
+  // Format cooldown time
   const formatCooldown = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -103,25 +89,25 @@ const MainUI = () => {
         {showInventory ? (
           <h1 className="text-2xl font-semibold text-center mb-4">Inventory</h1>
         ) : (
-          <h1 className="text-2xl font-semibold text-center mb-4">Welcome to WateRPG</h1>
+          <h1 className="text-2xl font-semibold text-center mb-4">{`Welcome to ${currentLocation}`}</h1>
         )}
         {showInventory ? (
           <Image
             src="/inventory.png"
             alt="Inventory Screen"
             width={800}
-            height={800} 
+            height={800}
           />
         ) : (
           <Image
             src="/main.png"
             alt="Start Screen"
             width={800}
-            height={800} 
+            height={800}
           />
         )}
       </div>
-      {!showXpTree && !showInventory ? (
+      {!showXpTree && !showInventory && !showMap ? (
         <div className="grid grid-cols-3 gap-3">
           <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
             <div className='flex gap-3'>
@@ -151,7 +137,7 @@ const MainUI = () => {
             <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
               <div
                 className="bg-purple-500 h-4 rounded-full"
-                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }} 
+                style={{ width: `${(currentEndurance / maxEndurance) * 100}%` }}
               ></div>
             </div>
             <div className='flex gap-3'>
@@ -187,18 +173,19 @@ const MainUI = () => {
               {cooldown > 0 ? `Wait ${formatCooldown(cooldown)}` : 'Log Water'}
             </button>
             <button
-              onClick={() => { setShowXpTree(true); setShowInventory(false); }}
+              onClick={() => { setShowXpTree(true); setShowInventory(false); setShowMap(false); }}
               className="w-full px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
             >
               Skill Tree
             </button>
             <button
+              onClick={() => { setShowMap(true); setShowXpTree(false); setShowInventory(false); }}
               className="w-full px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
             >
               Map
             </button>
             <button
-              onClick={() => { setShowInventory(true); setShowXpTree(false); }}
+              onClick={() => { setShowInventory(true); setShowXpTree(false); setShowMap(false); }}
               className="w-full px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               Inventory
@@ -248,6 +235,8 @@ const MainUI = () => {
             Back to Main Menu
           </button>
         </div>
+      ) : showMap ? (
+        <Map onLocationSelect={handleLocationSelect} />
       ) : null}
     </div>
   );
