@@ -2,35 +2,42 @@ import Image from 'next/image';
 
 const ImageSection = ({ showInventory, currentLocation }) => {
   const getImageSource = () => {
-    if (currentLocation === "Watwon") {
+    if (showInventory) {
+      return "/inventory.png";
+    } else if (currentLocation === "Watwon") {
       return "/wantwon.png";
     } else {
       return "/main.png";
     }
   };
 
+  const getHeading = () => {
+    if (showInventory) {
+      return "Inventory";
+    } else {
+      return `Welcome to ${currentLocation}`;
+    }
+  };
+
+  const getAltText = () => {
+    if (showInventory) {
+      return "Inventory Screen";
+    } else if (currentLocation === "Watwon") {
+      return "Watwon";
+    } else {
+      return "Home";
+    }
+  };
+
   return (
     <div className='place-self-center'>
-      {showInventory ? (
-        <h1 className="text-2xl font-semibold text-center mb-4">Inventory</h1>
-      ) : (
-        <h1 className="text-2xl font-semibold text-center mb-4">{`Welcome to ${currentLocation}`}</h1>
-      )}
-      {showInventory ? (
-        <Image
-          src="/inventory.png"
-          alt="Inventory Screen"
-          width={800}
-          height={800}
-        />
-      ) : (
-        <Image
-          src={getImageSource()}
-          alt={currentLocation === "Watwon" ? "Watwon" : "Home"}
-          width={800}
-          height={800}
-        />
-      )}
+      <h1 className="text-2xl font-semibold text-center mb-4">{getHeading()}</h1>
+      <Image
+        src={getImageSource()}
+        alt={getAltText()}
+        width={800}
+        height={800}
+      />
     </div>
   );
 };
