@@ -7,7 +7,6 @@ const PlayerInfo = ({ level, statPoints, strength, intelligence, agility, curren
         <p className="text-lg font-semibold">Strength: {strength}</p>
         <p className="text-lg font-semibold">Intelligence: {intelligence}</p>
         <p className="text-lg font-semibold">Agility: {agility}</p>
-        <p className="text-lg font-semibold">Endurance: {currentEndurance} / {maxEndurance}</p>
         <h2 className="text-xl font-semibold">Steps</h2>
         <p className="text-lg">{steps} Traveled</p>
         <h2 className="text-xl font-semibold">Water Intake</h2>
