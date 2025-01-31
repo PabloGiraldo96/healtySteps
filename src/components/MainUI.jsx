@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import XpTree from './SkillTree';
-import Inventory from './Inventory';
-import Map from './Map';
-import Stats from './Stats';
-import PlayerInfo from './PlayerInfo';
-import ButtonUi from './ButtonUi';
-import ImageSection from './ImageSection';
-import ExploreMenu from './ExploreMenu'; 
+import { useState, useEffect } from "react";
+import XpTree from "./SkillTree";
+import Inventory from "./Inventory";
+import Map from "./Map";
+import Stats from "./Stats";
+import PlayerInfo from "./PlayerInfo";
+import ButtonUi from "./ButtonUi";
+import ImageSection from "./ImageSection";
+import ExploreMenu from "./ExploreMenu";
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -28,10 +28,12 @@ const MainUI = () => {
   const [maxEndurance, setMaxEndurance] = useState(10);
   const [currentLocation, setCurrentLocation] = useState("Home");
   const [showMap, setShowMap] = useState(false);
-  const [showExploreMenu, setShowExploreMenu] = useState(false); 
+  const [showExploreMenu, setShowExploreMenu] = useState(false);
 
   const handleLocationSelect = (location) => {
-    const confirmTravel = window.confirm(`Do you want to travel to ${location}?`);
+    const confirmTravel = window.confirm(
+      `Do you want to travel to ${location}?`
+    );
     if (confirmTravel) {
       setCurrentLocation(location);
       setShowMap(false);
@@ -57,7 +59,7 @@ const MainUI = () => {
       });
       alert(`You gained ${gainedXP} XP!`);
     } else {
-      alert('You can only log one glass of water per hour.');
+      alert("You can only log one glass of water per hour.");
     }
   };
 
@@ -80,12 +82,30 @@ const MainUI = () => {
   const formatCooldown = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
+  // Code to catch the steps and save them into localstorage
+
+  useEffect(() => {
+    const savedSteps = localStorage.getItem("stepsTaken");
+    if (savedSteps) {
+      setSteps(JSON.parse(savedSteps));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (steps.length > 0) {
+      localStorage.setItem("stepsTaken", JSON.stringify(steps));
+    }
+  }, [steps]);
+
   return (
-    <div className="space-y-4">
-      <ImageSection showInventory={showInventory} currentLocation={currentLocation} />
+    <div className="p-4 space-y-4">
+      <ImageSection
+        showInventory={showInventory}
+        currentLocation={currentLocation}
+      />
 
       {showExploreMenu && (
         <ExploreMenu
@@ -95,7 +115,7 @@ const MainUI = () => {
       )}
 
       {!showXpTree && !showInventory && !showMap && !showExploreMenu && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Stats
             currentEndurance={currentEndurance}
             maxEndurance={maxEndurance}
@@ -162,9 +182,7 @@ const MainUI = () => {
         </div>
       )}
 
-      {showMap && (
-        <Map onLocationSelect={handleLocationSelect} />
-      )}
+      {showMap && <Map onLocationSelect={handleLocationSelect} />}
     </div>
   );
 };
