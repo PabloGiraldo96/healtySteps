@@ -49,14 +49,14 @@ const SkillTree = ({
           <button
             onClick={() => allocateStatPoint("strength")}
             disabled={statPoints === 0}
-            className="w-1/4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-1/6 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             Increase Strength
           </button>
           <button
             onClick={() => allocateStatPoint("intelligence")}
             disabled={statPoints === 0}
-            className="w-1/4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-1/6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             Increase Intelligence
           </button>
@@ -65,14 +65,14 @@ const SkillTree = ({
           <button
             onClick={() => allocateStatPoint("agility")}
             disabled={statPoints === 0}
-            className="w-1/4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-1/6 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             Increase Agility
           </button>
           <button
             onClick={() => allocateStatPoint("endurance")}
             disabled={statPoints === 0}
-            className="w-1/4 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-1/6 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             Increase Endurance
           </button>
@@ -80,7 +80,7 @@ const SkillTree = ({
       </div>
       <button
         onClick={() => setShowXpTree(false)}
-        className="w-1/4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+        className="w-1/6 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
       >
         Back to Main Menu
       </button>
