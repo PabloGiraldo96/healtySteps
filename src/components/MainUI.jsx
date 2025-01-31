@@ -17,18 +17,17 @@ const MainUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(5);
+  const [statPoints, setStatPoints] = useState(5); // Moved statPoints here
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
   const [showInventory, setShowInventory] = useState(false);
-  const [strength, setStrength] = useState(10);
-  const [intelligence, setIntelligence] = useState(10);
-  const [agility, setAgility] = useState(10);
-  const [currentEndurance, setCurrentEndurance] = useState(10);
-  const [maxEndurance, setMaxEndurance] = useState(10);
   const [currentLocation, setCurrentLocation] = useState("Home");
   const [showMap, setShowMap] = useState(false);
   const [showExploreMenu, setShowExploreMenu] = useState(false);
+
+  // State for endurance
+  const [currentEndurance, setCurrentEndurance] = useState(10);
+  const [maxEndurance, setMaxEndurance] = useState(10);
 
   const handleLocationSelect = (location) => {
     const confirmTravel = window.confirm(
@@ -51,7 +50,7 @@ const MainUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1);
+          setStatPoints((prevStatPoints) => prevStatPoints + 1); // Grant a stat point on level up
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
@@ -122,12 +121,6 @@ const MainUI = () => {
           />
           <PlayerInfo
             level={level}
-            statPoints={statPoints}
-            strength={strength}
-            intelligence={intelligence}
-            agility={agility}
-            currentEndurance={currentEndurance}
-            maxEndurance={maxEndurance}
             steps={steps}
             waterIntake={waterIntake}
           />
@@ -147,17 +140,11 @@ const MainUI = () => {
         <XpTree
           statPoints={statPoints}
           setStatPoints={setStatPoints}
-          strength={strength}
-          setStrength={setStrength}
-          intelligence={intelligence}
-          setIntelligence={setIntelligence}
-          agility={agility}
-          setAgility={setAgility}
           currentEndurance={currentEndurance}
           setCurrentEndurance={setCurrentEndurance}
           maxEndurance={maxEndurance}
           setMaxEndurance={setMaxEndurance}
-          setShowXpTree={setShowXpTree} // Pass setShowXpTree as a prop
+          setShowXpTree={setShowXpTree}
         />
       )}
 
