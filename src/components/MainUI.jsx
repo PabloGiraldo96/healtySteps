@@ -85,7 +85,6 @@ const MainUI = () => {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-center mb-4">{currentLocation}</h2>
       <ImageSection showInventory={showInventory} currentLocation={currentLocation} />
 
       {showExploreMenu && (
