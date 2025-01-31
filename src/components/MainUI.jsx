@@ -8,6 +8,7 @@ import Stats from './Stats';
 import PlayerInfo from './PlayerInfo';
 import ButtonUi from './ButtonUi';
 import ImageSection from './ImageSection';
+import ExploreMenu from './ExploreMenu'; 
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -27,18 +28,14 @@ const MainUI = () => {
   const [maxEndurance, setMaxEndurance] = useState(10);
   const [currentLocation, setCurrentLocation] = useState("Home");
   const [showMap, setShowMap] = useState(false);
-
-  const locationComponents = {
-    "Home": HomeTown,
-    "Watwon": Watwon,
-    "Wishing Well": WishingWell,
-  };
-
-  const CurrentLocationComponent = locationComponents[currentLocation];
+  const [showExploreMenu, setShowExploreMenu] = useState(false); 
 
   const handleLocationSelect = (location) => {
-    setCurrentLocation(location);
-    setShowMap(false);
+    const confirmTravel = window.confirm(`Do you want to travel to ${location}?`);
+    if (confirmTravel) {
+      setCurrentLocation(location);
+      setShowMap(false);
+    }
   };
 
   const handleWaterClick = () => {
@@ -88,13 +85,17 @@ const MainUI = () => {
 
   return (
     <div className="space-y-4">
-      {CurrentLocationComponent ? (
-        <CurrentLocationComponent />
-      ) : null}
-
+      <h2 className="text-2xl font-semibold text-center mb-4">{currentLocation}</h2>
       <ImageSection showInventory={showInventory} currentLocation={currentLocation} />
 
-      {!showXpTree && !showInventory && !showMap ? (
+      {showExploreMenu && (
+        <ExploreMenu
+          currentLocation={currentLocation}
+          onBack={() => setShowExploreMenu(false)}
+        />
+      )}
+
+      {!showXpTree && !showInventory && !showMap && !showExploreMenu && (
         <div className="grid grid-cols-3 gap-3">
           <Stats
             currentEndurance={currentEndurance}
@@ -120,9 +121,12 @@ const MainUI = () => {
             setShowXpTree={setShowXpTree}
             setShowInventory={setShowInventory}
             setShowMap={setShowMap}
+            setShowExploreMenu={setShowExploreMenu}
           />
         </div>
-      ) : showXpTree ? (
+      )}
+
+      {showXpTree && (
         <div className="space-y-4">
           <XpTree
             statPoints={statPoints}
@@ -145,7 +149,9 @@ const MainUI = () => {
             Back to Main Menu
           </button>
         </div>
-      ) : showInventory ? (
+      )}
+
+      {showInventory && (
         <div className="space-y-4">
           <Inventory waterIntake={waterIntake} />
           <button
@@ -155,9 +161,11 @@ const MainUI = () => {
             Back to Main Menu
           </button>
         </div>
-      ) : showMap ? (
+      )}
+
+      {showMap && (
         <Map onLocationSelect={handleLocationSelect} />
-      ) : null}
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-
+"use client";
 
 import { useState, useEffect } from 'react';
 
@@ -58,7 +58,6 @@ const Inventory = ({ waterIntake }) => {
             {item && (
               <div className="text-2xl">
                 {item.type === 'water' && `💧${item.count}`}
-                {/* Add more item types as needed */}
               </div>
             )}
           </div>
