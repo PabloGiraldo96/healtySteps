@@ -41,6 +41,7 @@ const ImageSection = ({ showInventory, currentLocation }) => {
         alt={getAltText()}
         width={800}
         height={800}
+        className='border-black border-2'
       />
     </div>
   );
