@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import XpTree from "./SkillTree";
 import Inventory from "./Inventory";
@@ -17,7 +15,7 @@ const MainUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(5); // Moved statPoints here
+  const [statPoints, setStatPoints] = useState(5); 
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
   const [showInventory, setShowInventory] = useState(false);
