@@ -1,4 +1,4 @@
-const ActionButtons = ({ cooldown, formatCooldown, handleWaterClick, setShowXpTree, setShowInventory, setShowMap }) => {
+const ButtonUi = ({ cooldown, formatCooldown, handleWaterClick, setShowXpTree, setShowInventory, setShowMap }) => {
     return (
       <div className="grid grid-cols-3 gap-3">
         <button
@@ -40,4 +40,4 @@ const ActionButtons = ({ cooldown, formatCooldown, handleWaterClick, setShowXpTr
     );
   };
   
-  export default ActionButtons;
+  export default ButtonUi;

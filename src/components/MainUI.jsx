@@ -6,10 +6,7 @@ import Inventory from './Inventory';
 import Map from './Map';
 import Stats from './Stats';
 import PlayerInfo from './PlayerInfo';
-import ActionButtons from './ActionButtons';
-import HomeTown from './locations/hometown/HomeTown';
-import Watwon from './locations/watwon/Watwon';
-import WishingWell from './locations/wishingwell/WishingWell'; // Import the new component
+import ButtonUi from './ButtonUi';
 import ImageSection from './ImageSection';
 
 const MainUI = () => {
@@ -31,12 +28,17 @@ const MainUI = () => {
   const [currentLocation, setCurrentLocation] = useState("Home");
   const [showMap, setShowMap] = useState(false);
 
+  const locationComponents = {
+    "Home": HomeTown,
+    "Watwon": Watwon,
+    "Wishing Well": WishingWell,
+  };
+
+  const CurrentLocationComponent = locationComponents[currentLocation];
+
   const handleLocationSelect = (location) => {
-    const confirmTravel = window.confirm(`Do you want to travel to ${location}?`);
-    if (confirmTravel) {
-      setCurrentLocation(location);
-      setShowMap(false);
-    }
+    setCurrentLocation(location);
+    setShowMap(false);
   };
 
   const handleWaterClick = () => {
@@ -84,22 +86,10 @@ const MainUI = () => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  const handleTravelToWatwon = () => {
-    setCurrentLocation("Watwon");
-  };
-
-  const handleReturnHome = () => {
-    setCurrentLocation("Home");
-  };
-
   return (
     <div className="space-y-4">
-      {currentLocation === "Home" ? (
-        <HomeTown onTravelToWatwon={handleTravelToWatwon} />
-      ) : currentLocation === "Watwon" ? (
-        <Watwon onReturnHome={handleReturnHome} />
-      ) : currentLocation === "Wishing Well" ? (
-        <WishingWell onReturnHome={handleReturnHome} />
+      {CurrentLocationComponent ? (
+        <CurrentLocationComponent />
       ) : null}
 
       <ImageSection showInventory={showInventory} currentLocation={currentLocation} />
@@ -123,7 +113,7 @@ const MainUI = () => {
             steps={steps}
             waterIntake={waterIntake}
           />
-          <ActionButtons
+          <ButtonUi
             cooldown={cooldown}
             formatCooldown={formatCooldown}
             handleWaterClick={handleWaterClick}
