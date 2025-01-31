@@ -5,7 +5,6 @@ import { useState } from "react";
 const SkillTree = ({
   statPoints,
   setStatPoints,
-  currentEndurance,
   setCurrentEndurance,
   maxEndurance,
   setMaxEndurance,
@@ -34,7 +33,7 @@ const SkillTree = ({
         default:
           break;
       }
-      setStatPoints((prev) => prev - 1); // Deduct stat points
+      setStatPoints((prev) => prev - 1); 
     }
   };
 
@@ -79,7 +78,6 @@ const SkillTree = ({
           </button>
         </div>
       </div>
-      {/* Back button */}
       <button
         onClick={() => setShowXpTree(false)}
         className="w-1/4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"

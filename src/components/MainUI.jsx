@@ -24,8 +24,6 @@ const MainUI = () => {
   const [currentLocation, setCurrentLocation] = useState("Home");
   const [showMap, setShowMap] = useState(false);
   const [showExploreMenu, setShowExploreMenu] = useState(false);
-
-  // State for endurance
   const [currentEndurance, setCurrentEndurance] = useState(10);
   const [maxEndurance, setMaxEndurance] = useState(10);
 
@@ -50,7 +48,7 @@ const MainUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1); // Grant a stat point on level up
+          setStatPoints((prevStatPoints) => prevStatPoints + 1); 
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
