@@ -144,28 +144,21 @@ const MainUI = () => {
       )}
 
       {showXpTree && (
-        <div className="space-y-4">
-          <XpTree
-            statPoints={statPoints}
-            setStatPoints={setStatPoints}
-            strength={strength}
-            setStrength={setStrength}
-            intelligence={intelligence}
-            setIntelligence={setIntelligence}
-            agility={agility}
-            setAgility={setAgility}
-            currentEndurance={currentEndurance}
-            setCurrentEndurance={setCurrentEndurance}
-            maxEndurance={maxEndurance}
-            setMaxEndurance={setMaxEndurance}
-          />
-          <button
-            onClick={() => setShowXpTree(false)}
-            className="w-1/4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
-          >
-            Back to Main Menu
-          </button>
-        </div>
+        <XpTree
+          statPoints={statPoints}
+          setStatPoints={setStatPoints}
+          strength={strength}
+          setStrength={setStrength}
+          intelligence={intelligence}
+          setIntelligence={setIntelligence}
+          agility={agility}
+          setAgility={setAgility}
+          currentEndurance={currentEndurance}
+          setCurrentEndurance={setCurrentEndurance}
+          maxEndurance={maxEndurance}
+          setMaxEndurance={setMaxEndurance}
+          setShowXpTree={setShowXpTree} // Pass setShowXpTree as a prop
+        />
       )}
 
       {showInventory && (

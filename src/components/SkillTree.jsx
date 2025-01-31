@@ -10,6 +10,7 @@ const SkillTree = ({
   setCurrentEndurance,
   maxEndurance,
   setMaxEndurance,
+  setShowXpTree, // Add setShowXpTree to the props
 }) => {
   const allocateStatPoint = (stat) => {
     if (statPoints > 0) {
@@ -59,22 +60,28 @@ const SkillTree = ({
           </button>
         </div>
         <div className="flex place-content-center gap-3">
-        <button
-          onClick={() => allocateStatPoint('agility')}
-          disabled={statPoints === 0}
-          className="w-1/4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-        >
-          Increase Agility
-        </button>
-        <button
-          onClick={() => allocateStatPoint('endurance')}
-          disabled={statPoints === 0}
-          className="w-1/4 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-        >
-          Increase Endurance
-        </button>
+          <button
+            onClick={() => allocateStatPoint('agility')}
+            disabled={statPoints === 0}
+            className="w-1/4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            Increase Agility
+          </button>
+          <button
+            onClick={() => allocateStatPoint('endurance')}
+            disabled={statPoints === 0}
+            className="w-1/4 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            Increase Endurance
+          </button>
         </div>
       </div>
+      <button
+        onClick={() => setShowXpTree(false)}
+        className="w-1/4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+      >
+        Back to Main Menu
+      </button>
     </div>
   );
 };
