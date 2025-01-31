@@ -85,8 +85,6 @@ const MainUI = () => {
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  // Code to catch the steps and save them into localstorage
-
   useEffect(() => {
     const savedSteps = localStorage.getItem("stepsTaken");
     if (savedSteps) {
@@ -163,7 +161,7 @@ const MainUI = () => {
           />
           <button
             onClick={() => setShowXpTree(false)}
-            className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+            className="w-1/4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
           >
             Back to Main Menu
           </button>
