@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import XpTree from "./SkillTree";
 import Inventory from "./Inventory";
@@ -15,7 +17,7 @@ const MainUI = () => {
   const [cooldown, setCooldown] = useState(0);
   const [xp, setXp] = useState(0);
   const [level, setLevel] = useState(1);
-  const [statPoints, setStatPoints] = useState(5); 
+  const [statPoints, setStatPoints] = useState(5);
   const [maxXp, setMaxXp] = useState(128);
   const [showXpTree, setShowXpTree] = useState(false);
   const [showInventory, setShowInventory] = useState(false);
@@ -24,6 +26,7 @@ const MainUI = () => {
   const [showExploreMenu, setShowExploreMenu] = useState(false);
   const [currentEndurance, setCurrentEndurance] = useState(10);
   const [maxEndurance, setMaxEndurance] = useState(10);
+  const [gold, setGold] = useState(0); // Gold state
 
   const handleLocationSelect = (location) => {
     const confirmTravel = window.confirm(
@@ -46,7 +49,7 @@ const MainUI = () => {
         const newXp = prevXp + gainedXP;
         if (newXp >= maxXp) {
           setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1); 
+          setStatPoints((prevStatPoints) => prevStatPoints + 1);
           setMaxXp((prevMaxXp) => prevMaxXp * 2);
           return newXp - maxXp;
         }
@@ -104,6 +107,7 @@ const MainUI = () => {
         <ExploreMenu
           currentLocation={currentLocation}
           onBack={() => setShowExploreMenu(false)}
+          setGold={setGold}
         />
       )}
 
@@ -119,6 +123,7 @@ const MainUI = () => {
             level={level}
             steps={steps}
             waterIntake={waterIntake}
+            gold={gold}
           />
           <ButtonUi
             cooldown={cooldown}
