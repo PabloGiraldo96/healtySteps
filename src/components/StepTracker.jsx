@@ -19,11 +19,10 @@ const StepTracker = ({ onStepUpdate }) => {
 
         const totalDelta = deltaX + deltaY + deltaZ;
 
-        // Threshold to detect a step (adjust as needed)
         if (totalDelta > 15) {
           stepCount += 1;
           setSteps((prevSteps) => prevSteps + 1);
-          onStepUpdate(stepCount); // Notify parent component of step updates
+          onStepUpdate(stepCount);
         }
       }
 
@@ -31,7 +30,6 @@ const StepTracker = ({ onStepUpdate }) => {
     };
 
     if (typeof DeviceMotionEvent !== "undefined" && DeviceMotionEvent.requestPermission) {
-      // Request permission for iOS devices
       DeviceMotionEvent.requestPermission()
         .then((permissionState) => {
           if (permissionState === "granted") {
@@ -40,7 +38,6 @@ const StepTracker = ({ onStepUpdate }) => {
         })
         .catch(console.error);
     } else {
-      // For non-iOS devices
       window.addEventListener("devicemotion", handleMotion);
     }
 
@@ -62,7 +59,7 @@ const StepTracker = ({ onStepUpdate }) => {
     }
   }, [steps]);
 
-  return null; // This component doesn't render anything
+  return null;
 };
 
 export default StepTracker;
