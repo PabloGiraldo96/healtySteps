@@ -29,14 +29,9 @@ const MainUI = () => {
   const [gold, setGold] = useState(0);
 
   const handleLocationSelect = (location) => {
-    const confirmTravel = window.confirm(
-      `Do you want to travel to ${location}?`
-    );
-    if (confirmTravel) {
-      setCurrentEndurance((prevEndurance) => Math.max(prevEndurance - 1, 0));
-      setCurrentLocation(location);
-      setShowMap(false);
-    }
+    setCurrentEndurance((prevEndurance) => Math.max(prevEndurance - 1, 0));
+    setCurrentLocation(location);
+    setShowMap(false);
   };
 
   const handleWaterClick = () => {
@@ -179,7 +174,13 @@ const MainUI = () => {
         </div>
       )}
 
-      {showMap && <Map onLocationSelect={handleLocationSelect} />}
+      {showMap && (
+        <Map
+          onLocationSelect={handleLocationSelect}
+          currentLocation={currentLocation}
+          onBack={() => setShowMap(false)}
+        />
+      )}
     </div>
   );
 };
