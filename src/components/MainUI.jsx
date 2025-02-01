@@ -124,6 +124,8 @@ const MainUI = () => {
           currentLocation={currentLocation}
           onBack={() => setShowExploreMenu(false)}
           setGold={setGold}
+          waterIntake={waterIntake}
+          setWaterIntake={setWaterIntake}
         />
       )}
 

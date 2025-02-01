@@ -1,8 +1,13 @@
-const WishingWell = ({ onBack, setGold }) => {
+const WishingWell = ({ onBack, setGold, waterIntake, setWaterIntake }) => {
   const handleSellWater = () => {
-    const gold = getWeightedRandomGold();
-    setGold((prevGold) => prevGold + gold); 
-    alert(`You sold water and earned ${gold} gold!`);
+    if (waterIntake > 0) {
+      const gold = getWeightedRandomGold();
+      setGold((prevGold) => prevGold + gold);
+      setWaterIntake((prevWater) => prevWater - 1); // Subtract 1 water
+      alert(`You sold water and earned ${gold} gold!`);
+    } else {
+      alert("You don't have any water to sell!");
+    }
   };
 
   const getWeightedRandomGold = () => {
