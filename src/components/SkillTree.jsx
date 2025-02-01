@@ -1,4 +1,4 @@
-`use client`
+"use client";
 
 import { useState } from "react";
 
@@ -9,19 +9,23 @@ const SkillTree = ({
   maxEndurance,
   setMaxEndurance,
   setShowXpTree,
+  setHealth,
+  setMana,
 }) => {
-  const [strength, setStrength] = useState(10);
-  const [intelligence, setIntelligence] = useState(10);
-  const [agility, setAgility] = useState(10);
+  const [strength, setStrength] = useState(0);
+  const [intelligence, setIntelligence] = useState(0);
+  const [agility, setAgility] = useState(0);
 
   const allocateStatPoint = (stat) => {
     if (statPoints > 0) {
       switch (stat) {
         case "strength":
           setStrength((prev) => prev + 1);
+          setHealth((prev) => prev + 1);
           break;
         case "intelligence":
           setIntelligence((prev) => prev + 1);
+          setMana((prev) => prev + 1);
           break;
         case "agility":
           setAgility((prev) => prev + 1);
@@ -33,7 +37,7 @@ const SkillTree = ({
         default:
           break;
       }
-      setStatPoints((prev) => prev - 1); 
+      setStatPoints((prev) => prev - 1);
     }
   };
 

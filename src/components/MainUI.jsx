@@ -27,6 +27,8 @@ const MainUI = () => {
   const [currentEndurance, setCurrentEndurance] = useState(10);
   const [maxEndurance, setMaxEndurance] = useState(10);
   const [gold, setGold] = useState(0);
+  const [health, setHealth] = useState(28);
+  const [mana, setMana] = useState(16);
 
   const handleLocationSelect = (location) => {
     setCurrentEndurance((prevEndurance) => Math.max(prevEndurance - 1, 0));
@@ -131,6 +133,8 @@ const MainUI = () => {
             maxEndurance={maxEndurance}
             xp={xp}
             maxXp={maxXp}
+            health={health}
+            mana={mana}
           />
           <PlayerInfo
             level={level}
@@ -154,11 +158,12 @@ const MainUI = () => {
         <XpTree
           statPoints={statPoints}
           setStatPoints={setStatPoints}
-          currentEndurance={currentEndurance}
           setCurrentEndurance={setCurrentEndurance}
           maxEndurance={maxEndurance}
           setMaxEndurance={setMaxEndurance}
           setShowXpTree={setShowXpTree}
+          setHealth={setHealth}
+          setMana={setMana}
         />
       )}
 
