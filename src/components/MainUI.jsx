@@ -26,13 +26,14 @@ const MainUI = () => {
   const [showExploreMenu, setShowExploreMenu] = useState(false);
   const [currentEndurance, setCurrentEndurance] = useState(10);
   const [maxEndurance, setMaxEndurance] = useState(10);
-  const [gold, setGold] = useState(0); // Gold state
+  const [gold, setGold] = useState(0);
 
   const handleLocationSelect = (location) => {
     const confirmTravel = window.confirm(
       `Do you want to travel to ${location}?`
     );
     if (confirmTravel) {
+      setCurrentEndurance((prevEndurance) => Math.max(prevEndurance - 1, 0));
       setCurrentLocation(location);
       setShowMap(false);
     }
@@ -41,21 +42,26 @@ const MainUI = () => {
   const handleWaterClick = () => {
     const now = new Date();
     if (!lastWaterClick || now - lastWaterClick >= 60 * 60 * 1000) {
-      const gainedXP = getWeightedRandomXP();
-      setWaterIntake((prevWater) => prevWater + 1);
-      setLastWaterClick(now);
-      setCooldown(60 * 60);
-      setXp((prevXp) => {
-        const newXp = prevXp + gainedXP;
-        if (newXp >= maxXp) {
-          setLevel((prevLevel) => prevLevel + 1);
-          setStatPoints((prevStatPoints) => prevStatPoints + 1);
-          setMaxXp((prevMaxXp) => prevMaxXp * 2);
-          return newXp - maxXp;
-        }
-        return newXp;
-      });
-      alert(`You gained ${gainedXP} XP!`);
+      if (currentEndurance > 0) {
+        const gainedXP = getWeightedRandomXP();
+        setWaterIntake((prevWater) => prevWater + 1);
+        setLastWaterClick(now);
+        setCooldown(60 * 60);
+        setCurrentEndurance((prevEndurance) => Math.max(prevEndurance - 1, 0));
+        setXp((prevXp) => {
+          const newXp = prevXp + gainedXP;
+          if (newXp >= maxXp) {
+            setLevel((prevLevel) => prevLevel + 1);
+            setStatPoints((prevStatPoints) => prevStatPoints + 1);
+            setMaxXp((prevMaxXp) => prevMaxXp * 2);
+            return newXp - maxXp;
+          }
+          return newXp;
+        });
+        alert(`You gained ${gainedXP} XP!`);
+      } else {
+        alert("Not enough endurance to log water!");
+      }
     } else {
       alert("You can only log one glass of water per hour.");
     }
@@ -95,6 +101,16 @@ const MainUI = () => {
       localStorage.setItem("stepsTaken", JSON.stringify(steps));
     }
   }, [steps]);
+
+  useEffect(() => {
+    const enduranceTimer = setInterval(() => {
+      setCurrentEndurance((prevEndurance) =>
+        Math.min(prevEndurance + 1, maxEndurance)
+      );
+    }, 60 * 60 * 1000);
+
+    return () => clearInterval(enduranceTimer);
+  }, [maxEndurance]);
 
   return (
     <div className="p-4 space-y-4">
