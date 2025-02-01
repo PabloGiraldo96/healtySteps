@@ -9,6 +9,7 @@ import PlayerInfo from "./PlayerInfo";
 import ButtonUi from "./ButtonUi";
 import ImageSection from "./ImageSection";
 import ExploreMenu from "./ExploreMenu";
+import StepTracker from "./StepTracker"; 
 
 const MainUI = () => {
   const [steps, setSteps] = useState(0);
@@ -30,6 +31,11 @@ const MainUI = () => {
   const [health, setHealth] = useState(28);
   const [mana, setMana] = useState(16);
 
+  const handleStepUpdate = (newSteps) => {
+    setSteps(newSteps);
+  };
+
+  // Rest of your existing code...
   const handleLocationSelect = (location) => {
     setCurrentEndurance((prevEndurance) => Math.max(prevEndurance - 1, 0));
     setCurrentLocation(location);
@@ -87,19 +93,6 @@ const MainUI = () => {
   };
 
   useEffect(() => {
-    const savedSteps = localStorage.getItem("stepsTaken");
-    if (savedSteps) {
-      setSteps(JSON.parse(savedSteps));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (steps.length > 0) {
-      localStorage.setItem("stepsTaken", JSON.stringify(steps));
-    }
-  }, [steps]);
-
-  useEffect(() => {
     const enduranceTimer = setInterval(() => {
       setCurrentEndurance((prevEndurance) =>
         Math.min(prevEndurance + 1, maxEndurance)
@@ -111,6 +104,9 @@ const MainUI = () => {
 
   return (
     <div className="p-4 space-y-4">
+      {/* Add the StepTracker component */}
+      <StepTracker onStepUpdate={handleStepUpdate} />
+
       <ImageSection
         showInventory={showInventory}
         currentLocation={currentLocation}

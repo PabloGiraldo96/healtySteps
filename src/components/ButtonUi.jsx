@@ -12,7 +12,7 @@ const ButtonUi = ({
       <button
         onClick={handleWaterClick}
         disabled={cooldown > 0}
-        className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg"
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
       >
         {cooldown > 0 ? `Wait ${formatCooldown(cooldown)}` : "Log Water"}
       </button>
